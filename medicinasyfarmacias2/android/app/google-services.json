@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "608431076321",
+    "project_id": "basemedicinas2",
+    "storage_bucket": "basemedicinas2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608431076321:android:b46f0e7479bb9242ae58a0",
+        "android_client_info": {
+          "package_name": "com.example.medicinasyfarmacias"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608431076321-mq10jicfpjm64ou7c7sj3jnhupktjnp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlylIgrKmYgU-FrnEDrPGlN3TJHOe5OMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608431076321-mq10jicfpjm64ou7c7sj3jnhupktjnp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

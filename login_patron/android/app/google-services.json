@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "671782867371",
+    "project_id": "basefire-c319a",
+    "storage_bucket": "basefire-c319a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671782867371:android:b96f9583e484eff1dac2ee",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671782867371-k4lucpb7d1em9spakfir7h297jpd8rbd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfqfAmiixiQjaDEwwVxjE4cZT0rgIp8V8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671782867371-k4lucpb7d1em9spakfir7h297jpd8rbd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671782867371:android:4d552b2acd6784bddac2ee",
+        "android_client_info": {
+          "package_name": "com.example.login_patron"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671782867371-la13a446p8d36d5s34ah72rse8kvpbjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.login_patron",
+            "certificate_hash": "6745762b388e22d92ef1a79beec746b84b1414cb"
+          }
+        },
+        {
+          "client_id": "671782867371-k4lucpb7d1em9spakfir7h297jpd8rbd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfqfAmiixiQjaDEwwVxjE4cZT0rgIp8V8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671782867371-k4lucpb7d1em9spakfir7h297jpd8rbd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

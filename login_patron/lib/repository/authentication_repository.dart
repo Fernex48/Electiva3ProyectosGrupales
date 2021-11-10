@@ -61,7 +61,7 @@ class AuthenticationRepository {
       final googleAuth = await googleUser!.authentication;
       final Credential = firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      await _firebaseauth.signInWithCredential(credential);
+      await _firebaseauth.signInWithCredential(Credential);
     } on Exception {
       throw LogInWithGoogleFailure();
     }

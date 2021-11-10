@@ -19,9 +19,9 @@ class _MenuAppState extends State<MenuApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Menú"),
-      ),
+      //appBar: AppBar(
+      //  title: const Text("Menú"),
+      //),
       body: cuerpoMenu(),
     );
   }

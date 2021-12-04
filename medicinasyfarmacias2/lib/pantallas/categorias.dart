@@ -8,6 +8,7 @@
 //import '../funciones/funciones.dart';
 import 'package:flutter/material.dart';
 import 'package:medicinasyfarmacias/database/dbcategorias.dart';
+import 'package:medicinasyfarmacias/pantallas/cat_seleccionada.dart';
 
 //El Stateful que conocemos, aquí se crea toda la metodología donde se interactúa con la base de datos.
 //Se necesita un contexto dentro del método donde se realizar la consulta a la base de datos, por eso fue más
@@ -86,8 +87,11 @@ class _CategoriasState extends State<Categorias> {
                   //Esta función permite al botón realizar una acción, por ahora NO está definida la acción, así que si ve
                   //otras lineas comentadas, no las borre por favor.
                   onPressed: () {
-                    //Navigator.push(context,
-                    //MaterialPageRoute(builder: (context) => const Sucursales()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoriaSeleccionada(
+                                categoria: docs[index], db: db)));
                   },
                   child: Text(
                     docs[index]['nombre'],

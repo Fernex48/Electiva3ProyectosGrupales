@@ -1,205 +1,114 @@
-// ignore_for_file: avoid_unnecessary_containers, deprecated_member_use, duplicate_ignore, camel_case_types
+// POR AHORA NO HAY QUE HACER CASO A LOS IMPORTS QUE ESTAN COMENTADOS, QUE NO SE BORREN PERO TAMPOCO SE USEN
 
+// ignore_for_file: deprecated_member_use, camel_case_types
+//import 'package:firebase_core/firebase_core.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:medicinasyfarmacias/pantallas/sucursales.dart';
+//import '../funciones/funciones.dart';
 import 'package:flutter/material.dart';
-import '../funciones/funciones.dart';
-import 'medicamento_select.dart';
+import 'package:medicinasyfarmacias/database/dbcategorias.dart';
+import 'package:medicinasyfarmacias/pantallas/medicamento_select.dart';
 
+//El Stateful que conocemos, aquí se crea toda la metodología donde se interactúa con la base de datos.
+//Se necesita un contexto dentro del método donde se realizar la consulta a la base de datos, por eso fue más
+//conveniente hacer las consultas aquí
+// ignore: must_be_immutable
 class CategoriaSeleccionada extends StatefulWidget {
-  const CategoriaSeleccionada({Key? key}) : super(key: key);
-
+  CategoriaSeleccionada({Key? key, required this.categoria, required this.db})
+      : super(key: key);
+  Map categoria;
+  DatabaseCategorias db;
   @override
   _CategoriaSeleccionadaState createState() => _CategoriaSeleccionadaState();
 }
 
 class _CategoriaSeleccionadaState extends State<CategoriaSeleccionada> {
+  //Elementos para lograr la conexión con la base de datos, usando el archivo dart "dbFarmacias"
+  //el cual tiene una clase llamada "DatabaseFarmacias", la cual contiene las funciones para realizar el CRUD.
+
+  //Objeto de la clase DatabaseFarmacias
+  late DatabaseCategorias db;
+  //Listado donde se irán guardando los registros de la colección consultada de la base.
+  List docs = [];
+  //Inicialización del objeto
+  initialise() {
+    db = DatabaseCategorias();
+    db.initiliase();
+    //Se hace uso de la función para leer todos los datos, se configura el estado internamente para asignar cada valor (registro de la colección)
+    //como elementos para la lista "docs"
+    //En otras palabras, guarda todos los registros de la colección Farmacias en el listado que luego se usará para mostrarlos en pantalla.
+    db.readMedicinas(widget.categoria['id']).then((value) => {
+          setState(() {
+            docs = value;
+          })
+        });
+  }
+
+  //Se inicia el estado de la conexión...
+  @override
+  void initState() {
+    super.initState();
+    initialise();
+  }
+
+  //El widget principal, este contiene una barra de aplicación "AppBar" que a su vez, contendrá un botón para regresar, el título
+  //y una opción de bùsqueda con un ícono...
+  //este Widget contiene también el listado de las farmacias...
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: cuerpoApp(
-          tituloPantalla("Categoría seleccionada"),
-          campoBuscar("Buscar producto"),
-          contenedorMedicina(),
-          const botonRegresar()),
-      //bottomNavigationBar: barraFooter(),
-    );
-  }
-}
-
-//El contenedor para todos los botones de las categorías
-Widget contenedorMedicina() {
-  return Container(
-    width: double.infinity,
-    decoration: const BoxDecoration(
-      color: Color(0xAAD2FEFF),
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30),
-        topRight: Radius.circular(30),
+      //Color de fondo
+      backgroundColor: const Color(0xFF81F4DA),
+      //Barra superior
+      appBar: AppBar(
+        //Centra el título que está contenido dentro del appbar...
+        centerTitle: true,
+        //color de fondo del appbar
+        backgroundColor: const Color(0xAAFA94FD),
+        //Texto "Farmacias"
+        title: const Text("Medicamentos"),
       ),
-    ),
-    alignment: Alignment.center,
-    child: Column(
-      children: const <Widget>[
-        SizedBox(height: 15),
-        Text(
-          "Medicinas",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-          ),
-        ),
-        SizedBox(height: 15),
-        botonMedicina(
-            fuente: 'assets/img/med1.jpg',
-            medicina: 'ABRILAR JARABE CON MENTOL FRASCO X 200ML'),
-        SizedBox(height: 15),
-        botonMedicina(
-          fuente: 'assets/img/med2.jpg',
-          medicina: 'AMBROXOL SUIZOS 15MG/5ML SOLUCION FRASCO 120ML',
-        ),
-        SizedBox(height: 15),
-        botonMedicina(
-          fuente: 'assets/img/med3.jpg',
-          medicina: 'ANTIFLUDES JARABE INFANTIL FRASCO X 60 ML',
-        ),
-        SizedBox(height: 15),
-        /*botonMedicina("img/med4.jpg",
-            "ANTIGRIP COMBINADO AM-PM X 6 SOBRES DE 2 TABLETAS"),
-        SizedBox(height: 15),*/
-      ],
-    ),
-  );
-}
 
-//Widget para la creación del botón de la categoría, al invocarlo, se debe brindar una cadena
-//con el nombre que tendrá el botón. Esto para que no se deba codificar un widget por cada botón.
+      //ESTO ES LO IMPORTANTE DEL CÓDIGO, AQUÍ SE MUESTRAN LOS REGISTROS DE LA COLECCIÓN FARMACIAS DIRECTO DE LA BASE DE DATOS
 
-class botonMedicina extends StatelessWidget {
-  const botonMedicina({Key? key, required this.fuente, required this.medicina})
-      : super(key: key);
-  final String fuente;
-  final String medicina;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 25),
-      child: ButtonTheme(
-        minWidth: double.infinity,
-        height: 45.0,
-        // ignore: deprecated_member_use
-        child: FlatButton(
-          color: Colors.white,
-          //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MedSeleccionado()));
-          },
-          child: Container(
-            child: Row(
-              children: <Widget>[
-                imagenBoton(fuente),
-                const SizedBox(width: 15),
-                Flexible(
-                  child: Text(
-                    medicina,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontFamily: "Tahoma",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+      //Se utiliza un constructor de una vista de listado, dentro de la cual, por medio del context, se crean elementos del mismo formato
+      //uno por cada elemento de la colección de la base de datos.
+      body: ListView.builder(
+        //La cantidad de farmacias
+        itemCount: docs.length,
+        //El elemento que se creará para cada farmacia, en este caso, un botón azul con text blanco.
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 25),
+            child: ButtonTheme(
+              minWidth: double.infinity,
+              height: 45.0,
+              child: FlatButton(
+                color: Colors.blue[600],
 
-/*Widget botonMedicina2(String fuente, String medicina) {
-  // ignore: deprecated_member_use
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 25),
-    child: ButtonTheme(
-      minWidth: double.infinity,
-      height: 45.0,
-      // ignore: deprecated_member_use
-      child: FlatButton(
-        color: Colors.white,
-        //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-        onPressed: () {},
-        child: Container(
-          child: Row(
-            children: <Widget>[
-              imagenBoton(fuente),
-              const SizedBox(width: 15),
-              Flexible(
+                //Esta función permite al botón realizar una acción, por ahora NO está definida la acción, así que si ve
+                //otras lineas comentadas, no las borre por favor.
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MedSeleccionado(medicina: docs[index], db: db)));
+                },
                 child: Text(
-                  medicina,
+                  docs[index]['nombre'],
                   style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
+                    fontSize: 25,
+                    color: Colors.white,
                     fontFamily: "Tahoma",
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
-    ),
-  );
-}*/
-
-//Método para el botón "Regresar" más actualizado
-class botonRegresar extends StatelessWidget {
-  const botonRegresar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 100),
-      child: ButtonTheme(
-          minWidth: double.infinity,
-          height: 45.0,
-          child: FlatButton(
-              color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                "Regresar",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  fontFamily: "Verdana",
-                ),
-              ))),
     );
   }
-}
-
-Widget imagenBoton(String url) {
-  return Column(
-    children: <Widget>[
-      Stack(
-        children: <Widget>[
-          //Container o SizedBox
-          SizedBox(
-            height: 120,
-            width: 120,
-            child: Image.asset(url),
-          ),
-        ],
-      ),
-    ],
-  );
 }

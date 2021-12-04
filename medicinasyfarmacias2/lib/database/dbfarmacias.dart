@@ -39,6 +39,37 @@ class DatabaseFarmacias {
     return read();
   }
 
+  //Función para LEER UNICAMENTE LOS DATOS de las sucursales de UNA farmacia
+
+  Future<List> readSucursales(String id) async {
+    QuerySnapshot querySnapshot;
+    List docs = [];
+    try {
+      querySnapshot = await firestore
+          .collection('farmacias')
+          .doc(id)
+          .collection('sucursales')
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs.toList()) {
+          Map a = {
+            "id": doc.id,
+            "nombre": doc['nombre'],
+            "direccion": doc['direccion'],
+            "telefono": doc['telefono'],
+            "latitud": doc['latitud'],
+            "longitud": doc['longitud'],
+          };
+          docs.add(a);
+        }
+        return docs;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return read();
+  }
+
   //Función para CREAR nuevos registros (de momento no se está utilizando)
   Future<void> create(String name) async {
     try {

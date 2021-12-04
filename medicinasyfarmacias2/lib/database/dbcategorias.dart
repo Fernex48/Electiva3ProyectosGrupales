@@ -39,6 +39,34 @@ class DatabaseCategorias {
     return read();
   }
 
+  //Función para obtener todos los medicamentos pertenecientes a una categoría
+  Future<List> readMedicinas(String id) async {
+    QuerySnapshot querySnapshot;
+    List docs = [];
+    try {
+      querySnapshot = await firestore
+          .collection('categorias')
+          .doc(id)
+          .collection('medicinas')
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs.toList()) {
+          Map a = {
+            "id": doc.id,
+            "nombre": doc['nombre'],
+            "descrip": doc['descrip'],
+            "imagen": doc['imagen'],
+          };
+          docs.add(a);
+        }
+        return docs;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return read();
+  }
+
   //Función para CREAR nuevos registros (de momento no se está utilizando)
   Future<void> create(String name) async {
     try {

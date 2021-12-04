@@ -1,24 +1,48 @@
 // ignore_for_file: deprecated_member_use, camel_case_types
 
 import 'package:flutter/material.dart';
-import '../funciones/funciones.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:medicinasyfarmacias/database/dbfarmacias.dart';
 
+// ignore: must_be_immutable
 class SucursalSeleccioanda extends StatefulWidget {
-  const SucursalSeleccioanda({Key? key}) : super(key: key);
-
+  SucursalSeleccioanda({Key? key, required this.sucursal, required this.db})
+      : super(key: key);
+  Map sucursal;
+  DatabaseFarmacias db;
   @override
   _SucursalSeleccioandaState createState() => _SucursalSeleccioandaState();
 }
 
+String nombreS = "";
+String direccionS = "";
+String telefonoS = "";
+double latitudS = 0;
+double longitudS = 0;
+
 class _SucursalSeleccioandaState extends State<SucursalSeleccioanda> {
+  @override
+  void initState() {
+    super.initState();
+    nombreS = widget.sucursal['nombre'];
+    direccionS = widget.sucursal['direccion'];
+    telefonoS = widget.sucursal['telefono'];
+    latitudS = double.parse(widget.sucursal['latitud']);
+    longitudS = double.parse(widget.sucursal['longitud']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: cuerpoApp2(
-        tituloPantalla("Sucursal seleccionada"),
-        descripcionSucursal(),
-        const botonRegresar(),
+      appBar: AppBar(
+        //Centra el título que está contenido dentro del appbar...
+        centerTitle: true,
+        //color de fondo del appbar
+        backgroundColor: const Color(0xAAFA94FD),
+        //Texto "Farmacias"
+        title: const Text("Sucursal seleccionada"),
       ),
+      body: descripcionSucursal(),
       resizeToAvoidBottomInset: false,
     );
   }
@@ -36,118 +60,112 @@ Widget descripcionSucursal() {
     ),
     alignment: Alignment.topCenter,
     child: Column(
-      children: const <Widget>[
-        SizedBox(height: 15),
+      children: <Widget>[
+        const SizedBox(height: 15),
         Text(
-          "Farmacia San Nicolas Antiguo",
-          style: TextStyle(
+          nombreS,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 26,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
-        Text("Centro Comercial Maquilishuat, local #4 Antiguo Cuscatlan",
-            style: TextStyle(
+        Text("Dirección: " + direccionS,
+            style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 15)),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
-        Text("Horarios (Abierto)",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 21)),
-        SizedBox(
-          height: 10,
-        ),
-        Text("Domingo: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
+        Text("Teléfono: " + telefonoS,
+            style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 15)),
-        SizedBox(
-          height: 10,
+        const SizedBox(
+          height: 20,
         ),
-        Text("Lunes: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15)),
         SizedBox(
-          height: 10,
+          height: 300,
+          child: GoogleMap(
+            initialCameraPosition:
+                CameraPosition(target: LatLng(latitudS, longitudS), zoom: 18),
+            markers: _buildMarkers().toSet(),
+          ),
         ),
-        Text("Martes: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15)),
-        SizedBox(
-          height: 10,
+        const SizedBox(
+          height: 20,
         ),
-        Text("Miercoles: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15)),
-        SizedBox(
-          height: 10,
-        ),
-        Text("Jueves: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15)),
-        SizedBox(
-          height: 10,
-        ),
-        Text("Viernes: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 15)),
-        SizedBox(
-          height: 10,
-        ),
-        Text("Sabado: 08:30 a. m. - 10:00 p. m",
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15))
+        const botonHorarios(),
       ],
     ),
   );
 }
 
-class botonRegresar extends StatelessWidget {
-  const botonRegresar({Key? key}) : super(key: key);
+var preset = [
+  {
+    "id": nombreS,
+    "lat": latitudS,
+    "lng": longitudS,
+    "titulo": "Sucursal",
+    "desc": nombreS
+  },
+];
+
+String _selectedOffice = '';
+
+Iterable<Marker> _buildMarkers() {
+  return preset.map((office) {
+    return Marker(
+        markerId: MarkerId(office['id'].toString()),
+        position: LatLng(double.parse(office['lat'].toString()),
+            double.parse(office['lng'].toString())),
+        infoWindow: InfoWindow(
+          title: office['titulo'].toString(),
+          snippet: office['desc'].toString(),
+        ),
+        icon: office['id'] == _selectedOffice
+            ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)
+            : BitmapDescriptor.defaultMarker,
+        consumeTapEvents: false,
+        onTap: () {});
+  });
+}
+
+class botonHorarios extends StatelessWidget {
+  const botonHorarios({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 100),
       child: ButtonTheme(
-          minWidth: double.infinity,
-          height: 45.0,
-          child: FlatButton(
-              color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+        minWidth: double.infinity,
+        height: 45.0,
+        // ignore: deprecated_member_use
+        child: FlatButton(
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+            //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+            onPressed: () {
+              //Navigator.push(context,
+              //MaterialPageRoute(builder: (context) => const Login()));
+            },
+            child: const Text(
+              "Horarios",
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.white,
+                fontFamily: "Tahoma",
               ),
-              //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                "Regresar",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  fontFamily: "Verdana",
-                ),
-              ))),
+            )),
+      ),
     );
   }
 }

@@ -196,6 +196,7 @@ class contenedorDat extends StatelessWidget {
             const SizedBox(height: 15),
             // Contraseña
             TextFormField(
+              obscureText: true,
               controller: contraseniaController,
               validator: (value) {
                 if (value!.isEmpty) {

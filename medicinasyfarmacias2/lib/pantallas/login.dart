@@ -97,8 +97,8 @@ class contenedorDat extends StatelessWidget {
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: const TextField(
-              decoration: InputDecoration(
+            child: TextFormField(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30.0),
@@ -113,18 +113,18 @@ class contenedorDat extends StatelessWidget {
           const SizedBox(height: 15),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: const TextField(
-              decoration: InputDecoration(
+            child: TextFormField(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30.0),
                   ),
                 ),
                 hintText: "Ingrese su Contraseña",
-                suffixIcon: Icon(Icons.visibility),
                 fillColor: Colors.white,
                 filled: true,
               ),
+              obscureText: true,
             ),
           ),
           const SizedBox(height: 15),
@@ -185,118 +185,3 @@ class contenedorDat extends StatelessWidget {
     );
   }
 }
-//El contenedor
-/*
-Widget contenedorDat2() {
-  return Container(
-    width: double.infinity,
-    decoration: const BoxDecoration(
-      color: Color(0xFFFFFDE7),
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30),
-        topRight: Radius.circular(30),
-      ),
-    ),
-    alignment: Alignment.center,
-    child: Column(
-      children: <Widget>[
-        const SizedBox(height: 25),
-        const Text(
-          "Bienvenido",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 35,
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          "Ingrese sus credenciales",
-          style: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-              ),
-              hintText: "Ingrese su Usuario",
-              fillColor: Colors.white,
-              filled: true,
-            ),
-          ),
-        ),
-        const SizedBox(height: 15),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-              ),
-              hintText: "Ingrese su Contraseña",
-              suffixIcon: Icon(Icons.visibility),
-              fillColor: Colors.white,
-              filled: true,
-            ),
-          ),
-        ),
-        const SizedBox(height: 15),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 100),
-          child: ButtonTheme(
-            minWidth: double.infinity,
-            height: 45.0,
-            child: FlatButton(
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-                onPressed: () {},
-                child: const Text(
-                  "Iniciar Sesion",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontFamily: "Tahoma",
-                  ),
-                )),
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          "O",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-        ),
-        const SizedBox(height: 10),
-        FlatButton(
-          onPressed: () {},
-          child: const Text(
-            "Registrarse",
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.blue,
-              fontFamily: "Tahoma",
-            ),
-          ),
-        ),
-        const SizedBox(height: 15),
-      ],
-    ),
-  );
-}*/

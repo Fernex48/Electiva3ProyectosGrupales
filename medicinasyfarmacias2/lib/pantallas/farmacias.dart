@@ -8,6 +8,7 @@
 //import '../funciones/funciones.dart';
 import 'package:flutter/material.dart';
 import 'package:medicinasyfarmacias/database/dbfarmacias.dart';
+import 'package:medicinasyfarmacias/pantallas/sucursales.dart';
 
 //El Stateful que conocemos, aquí se crea toda la metodología donde se interactúa con la base de datos.
 //Se necesita un contexto dentro del método donde se realizar la consulta a la base de datos, por eso fue más
@@ -76,6 +77,7 @@ class _FarmaciasState extends State<Farmacias> {
         //El elemento que se creará para cada farmacia, en este caso, un botón azul con text blanco.
         itemBuilder: (BuildContext context, int index) {
           return Container(
+            padding: const EdgeInsets.symmetric(vertical: 5),
             margin: const EdgeInsets.symmetric(horizontal: 25),
             child: ButtonTheme(
               minWidth: double.infinity,
@@ -86,9 +88,13 @@ class _FarmaciasState extends State<Farmacias> {
                   //Esta función permite al botón realizar una acción, por ahora NO está definida la acción, así que si ve
                   //otras lineas comentadas, no las borre por favor.
                   onPressed: () {
-                    //Navigator.push(context,
-                    //MaterialPageRoute(builder: (context) => const Sucursales()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Sucursales(farmacia: docs[index], db: db)));
                   },
+                  // ignore: avoid_unnecessary_containers
                   child: Text(
                     docs[index]['nombre'],
                     style: const TextStyle(

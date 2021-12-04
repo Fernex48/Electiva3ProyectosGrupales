@@ -45,10 +45,6 @@ Widget informacionApp() {
           const SizedBox(
             height: 10,
           ),
-          const botonRegresar(),
-          const SizedBox(
-            height: 10,
-          ),
         ],
       ),
     ),
@@ -121,58 +117,3 @@ Widget botonIntegrante(String nombreBoton) {
     ),
   );
 }
-
-class botonRegresar extends StatelessWidget {
-  const botonRegresar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 100),
-      child: ButtonTheme(
-          minWidth: double.infinity,
-          height: 45.0,
-          child: FlatButton(
-              color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                "Regresar",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  fontFamily: "Verdana",
-                ),
-              ))),
-    );
-  }
-}
-
-/*Widget botonRegresar2() {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 100),
-    child: ButtonTheme(
-        minWidth: double.infinity,
-        height: 45.0,
-        child: FlatButton(
-            color: Colors.blue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
-            //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-            onPressed: () {},
-            child: const Text(
-              "Regresar",
-              style: TextStyle(
-                fontSize: 25,
-                color: Colors.white,
-                fontFamily: "Verdana",
-              ),
-            ))),
-  );
-}*/

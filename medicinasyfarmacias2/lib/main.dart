@@ -9,10 +9,6 @@ Future<void> main() async {
   runApp(const MedicinasFarmaciasApp());
 }
 
-/*void main() {
-  runApp(const MedicinasFarmaciasApp());
-}*/
-
 class MedicinasFarmaciasApp extends StatelessWidget {
   const MedicinasFarmaciasApp({Key? key}) : super(key: key);
 

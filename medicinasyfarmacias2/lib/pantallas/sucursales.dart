@@ -23,6 +23,8 @@ class Sucursales extends StatefulWidget {
   _SucursalesState createState() => _SucursalesState();
 }
 
+String idFarmacia = "";
+
 class _SucursalesState extends State<Sucursales> {
   //Elementos para lograr la conexión con la base de datos, usando el archivo dart "dbFarmacias"
   //el cual tiene una clase llamada "DatabaseFarmacias", la cual contiene las funciones para realizar el CRUD.
@@ -48,6 +50,7 @@ class _SucursalesState extends State<Sucursales> {
   //Se inicia el estado de la conexión...
   @override
   void initState() {
+    idFarmacia = widget.farmacia['id'];
     super.initState();
     initialise();
   }
@@ -95,7 +98,9 @@ class _SucursalesState extends State<Sucursales> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => SucursalSeleccioanda(
-                              sucursal: docs[index], db: db)));
+                              sucursal: docs[index],
+                              db: db,
+                              idFarmacia: idFarmacia)));
                 },
                 child: Container(
                   child: Column(

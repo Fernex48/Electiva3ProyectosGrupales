@@ -1,11 +1,8 @@
 // ignore_for_file: unused_import, avoid_print, file_names
 
 /*
-
 Este archivo dart contiene las funciones para realizar el CRUD para la colección de "usuarios" en la base de "BaseMedicinas2"
-
 Si se quiere acceder a otra colección, se deberá crear otro archivo dart exclusivo para interactuar con esa colección.
-
 */
 
 // Los imports necesarios para esta clase
@@ -20,7 +17,23 @@ class DatabaseUsuarios {
     firestore = FirebaseFirestore.instance;
   }
 
-  //Función para LEER TODOS los registros (de momento no se está utilizando)
+  //Función para CREAR nuevos registros (Este SI SE ESTÁ UTILIZANDO)
+  Future<void> create(String name, String lastName, String user, String email,
+      String pass) async {
+    try {
+      await firestore.collection("usuarios").add({
+        'nombre': name,
+        'apellido': lastName,
+        'username': user,
+        'correo': email,
+        'password': pass,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //Función para LEER TODOS los registros (NO se está utilizando)
   Future<List> read() async {
     QuerySnapshot querySnapshot;
     List docs = [];
@@ -44,39 +57,5 @@ class DatabaseUsuarios {
       print(e);
     }
     return read();
-  }
-
-  //Función para CREAR nuevos registros (Este SI SE ESTÁ UTILIZANDO)
-  Future<void> create(String name, String lastName, String user, String email,
-      String pass) async {
-    try {
-      await firestore.collection("usuarios").add({
-        'nombre': name,
-        'apellido': lastName,
-        'username': user,
-        'correo': email,
-        'password': pass,
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  //Función para ELIMINAR algún registro (de momento no se está utilizando)
-  Future<void> delete(String id) async {
-    try {
-      await firestore.collection("usuarios").doc(id).delete();
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  //Función para ACTUALIZAR un registro (de momento no se está utilizando)
-  Future<void> update(String id, String name, String code) async {
-    try {
-      await firestore.collection("usuarios").doc(id).update({'nombre': name});
-    } catch (e) {
-      print(e);
-    }
   }
 }

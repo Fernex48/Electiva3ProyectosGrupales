@@ -19,9 +19,6 @@ class _MenuAppState extends State<MenuApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(
-      //  title: const Text("Menú"),
-      //),
       body: cuerpoMenu(),
     );
   }
@@ -119,7 +116,6 @@ class botonOpciones extends StatelessWidget {
         // ignore: deprecated_member_use
         child: FlatButton(
             color: const Color(0xAAD2FEFF),
-            //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             onPressed: () {
               if (nombreBoton == "Farmacias") {
                 Navigator.push(context,
@@ -149,30 +145,6 @@ class botonOpciones extends StatelessWidget {
   }
 }
 
-/*Widget botonOpciones2(String nombreBoton) {
-  // ignore: deprecated_member_use
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 25),
-    child: ButtonTheme(
-      minWidth: double.infinity,
-      height: 45.0,
-      // ignore: deprecated_member_use
-      child: FlatButton(
-          color: const Color(0xAAD2FEFF),
-          //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-          onPressed: () {},
-          child: Text(
-            nombreBoton,
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontFamily: "Tahoma",
-            ),
-          )),
-    ),
-  );
-}*/
-
 class botonCerrarSesion extends StatelessWidget {
   const botonCerrarSesion({Key? key}) : super(key: key);
 
@@ -189,7 +161,6 @@ class botonCerrarSesion extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
             ),
-            //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Login()));
@@ -207,33 +178,6 @@ class botonCerrarSesion extends StatelessWidget {
   }
 }
 
-/*Widget botonCerrarSesion2() {
-  // ignore: deprecated_member_use
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 100),
-    child: ButtonTheme(
-      minWidth: double.infinity,
-      height: 45.0,
-      // ignore: deprecated_member_use
-      child: FlatButton(
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-          //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-          onPressed: () {},
-          child: const Text(
-            "Cerrar sesión",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-              fontFamily: "Tahoma",
-            ),
-          )),
-    ),
-  );
-}*/
-
 class botonCerrarApp extends StatelessWidget {
   const botonCerrarApp({Key? key}) : super(key: key);
 
@@ -250,7 +194,6 @@ class botonCerrarApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
             ),
-            //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
             onPressed: () {
               SystemNavigator.pop();
             },
@@ -266,30 +209,3 @@ class botonCerrarApp extends StatelessWidget {
     );
   }
 }
-
-/*Widget botonCerrarApp2() {
-  // ignore: deprecated_member_use
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 100),
-    child: ButtonTheme(
-      minWidth: double.infinity,
-      height: 45.0,
-      // ignore: deprecated_member_use
-      child: FlatButton(
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-          //padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-          onPressed: () {SystemNavigator.pop()},
-          child: const Text(
-            "Cerrar app",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-              fontFamily: "Tahoma",
-            ),
-          )),
-    ),
-  );
-}*/

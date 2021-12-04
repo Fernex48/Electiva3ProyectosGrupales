@@ -1,11 +1,8 @@
 // ignore_for_file: unused_import, avoid_print, file_names
 
 /*
-
 Este archivo dart contiene las funciones para realizar el CRUD para la colección de "farmacias" en la base de "BaseMedicinas2"
-
 Si se quiere acceder a otra colección, se deberá crear otro archivo dart exclusivo para interactuar con esa colección.
-
 */
 
 // Los imports necesarios para esta clase
@@ -20,7 +17,7 @@ class DatabaseFarmacias {
     firestore = FirebaseFirestore.instance;
   }
 
-  //Función para LEER TODOS los registros (Este SI SE ESTÁ UTILIZANDO)
+  //Función para LEER TODOS los registros
   Future<List> read() async {
     QuerySnapshot querySnapshot;
     List docs = [];
@@ -70,7 +67,39 @@ class DatabaseFarmacias {
     return read();
   }
 
-  //Función para CREAR nuevos registros (de momento no se está utilizando)
+  //Función para obtener los horarios de una sucursal de una farmacia
+
+  Future<List> readHorarios(String idF, String idS) async {
+    QuerySnapshot querySnapshot;
+    List docs = [];
+    try {
+      querySnapshot = await firestore
+          .collection('farmacias')
+          .doc(idF)
+          .collection('sucursales')
+          .doc(idS)
+          .collection('horarios')
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs.toList()) {
+          Map a = {
+            "id": doc.id,
+            "dia": doc['dia'],
+            "horainicio": doc['horainicio'],
+            "horafin": doc['horafin'],
+          };
+          docs.add(a);
+        }
+        return docs;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return read();
+  }
+
+  //ESTAS FUNCIONES NO SE ESTÁN UTILIZANDO, PERO ESTÁN PROGRAMADAS PARA EN UN FUTURO
+  //Función para CREAR nuevos registros
   Future<void> create(String name) async {
     try {
       await firestore.collection("farmacias").add({
@@ -81,7 +110,7 @@ class DatabaseFarmacias {
     }
   }
 
-  //Función para ELIMINAR algún registro (de momento no se está utilizando)
+  //Función para ELIMINAR algún registro
   Future<void> delete(String id) async {
     try {
       await firestore.collection("farmacias").doc(id).delete();
@@ -90,7 +119,7 @@ class DatabaseFarmacias {
     }
   }
 
-  //Función para ACTUALIZAR un registro (de momento no se está utilizando)
+  //Función para ACTUALIZAR un registro
   Future<void> update(String id, String name, String code) async {
     try {
       await firestore.collection("farmacias").doc(id).update({'nombre': name});

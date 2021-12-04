@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:medicinasyfarmacias/database/dbusuarios.dart';
-//import 'package:medicinasyfarmacias/pantallas/menu.dart';
 import '../funciones/funciones.dart';
 
 class Registro extends StatelessWidget {

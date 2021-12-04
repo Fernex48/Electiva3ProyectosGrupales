@@ -1,11 +1,8 @@
 // ignore_for_file: unused_import, avoid_print, file_names
 
 /*
-
 Este archivo dart contiene las funciones para realizar el CRUD para la colección de "categorias" en la base de "BaseMedicinas2"
-
 Si se quiere acceder a otra colección, se deberá crear otro archivo dart exclusivo para interactuar con esa colección.
-
 */
 
 // Los imports necesarios para esta clase
@@ -20,7 +17,7 @@ class DatabaseCategorias {
     firestore = FirebaseFirestore.instance;
   }
 
-  //Función para LEER TODOS los registros (Este SI SE ESTÁ UTILIZANDO)
+  //Función para LEER TODOS los registros
   Future<List> read() async {
     QuerySnapshot querySnapshot;
     List docs = [];
@@ -67,7 +64,8 @@ class DatabaseCategorias {
     return read();
   }
 
-  //Función para CREAR nuevos registros (de momento no se está utilizando)
+  //ESTAS FUNCIONES NO SE ESTÁN UTILIZANDO. ESTÁN PROGRAMADAS PARA EN UN FUTURO
+  //Función para CREAR nuevos registros
   Future<void> create(String name) async {
     try {
       await firestore.collection("categorias").add({
@@ -78,7 +76,7 @@ class DatabaseCategorias {
     }
   }
 
-  //Función para ELIMINAR algún registro (de momento no se está utilizando)
+  //Función para ELIMINAR algún registro
   Future<void> delete(String id) async {
     try {
       await firestore.collection("categorias").doc(id).delete();
@@ -87,7 +85,7 @@ class DatabaseCategorias {
     }
   }
 
-  //Función para ACTUALIZAR un registro (de momento no se está utilizando)
+  //Función para ACTUALIZAR un registro
   Future<void> update(String id, String name, String code) async {
     try {
       await firestore.collection("categorias").doc(id).update({'nombre': name});

@@ -30,37 +30,23 @@ String telefonoS = "";
 double latitudS = 0;
 double longitudS = 0;
 
-var preset = [
-  {
-    "id": nombreS,
-    "lat": latitudS,
-    "lng": longitudS,
-    "titulo": "Sucursal",
-    "desc": nombreS
-  },
-];
-
-String _selectedOffice = '';
-
-Iterable<Marker> _buildMarkers() {
-  return preset.map((office) {
-    return Marker(
-        markerId: MarkerId(office['id'].toString()),
-        position: LatLng(double.parse(office['lat'].toString()),
-            double.parse(office['lng'].toString())),
-        infoWindow: InfoWindow(
-          title: office['titulo'].toString(),
-          snippet: office['desc'].toString(),
-        ),
-        icon: office['id'] == _selectedOffice
-            ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)
-            : BitmapDescriptor.defaultMarker,
-        consumeTapEvents: false,
-        onTap: () {});
-  });
-}
-
 class _SucursalSeleccioandaState extends State<SucursalSeleccioanda> {
+  // ignore: prefer_final_fields
+  Set<Marker> _markers = {};
+
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      _markers.add(Marker(
+        markerId: MarkerId(nombreS),
+        position: LatLng(latitudS, longitudS),
+        infoWindow: InfoWindow(
+          title: "Sucursal",
+          snippet: nombreS,
+        ),
+      ));
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -121,9 +107,10 @@ class _SucursalSeleccioandaState extends State<SucursalSeleccioanda> {
             SizedBox(
               height: 300,
               child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                markers: _markers,
                 initialCameraPosition: CameraPosition(
                     target: LatLng(latitudS, longitudS), zoom: 13),
-                markers: _buildMarkers().toSet(),
               ),
             ),
             const SizedBox(

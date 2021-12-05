@@ -6,7 +6,6 @@ import '../funciones/funciones.dart';
 import '../pantallas/farmacias.dart';
 import '../pantallas/categorias.dart';
 import '../pantallas/informacion.dart';
-import '../pantallas/login.dart';
 
 class MenuApp extends StatefulWidget {
   const MenuApp({Key? key}) : super(key: key);

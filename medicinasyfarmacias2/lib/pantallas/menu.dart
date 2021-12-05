@@ -162,8 +162,9 @@ class botonCerrarSesion extends StatelessWidget {
               borderRadius: BorderRadius.circular(18.0),
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Login()));
+              Navigator.of(context).pop();
+              //Navigator.push(context,
+              //MaterialPageRoute(builder: (context) => const Login()));
             },
             child: const Text(
               "Cerrar sesión",
